@@ -1,0 +1,36 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
+debug: true
+spring:
+  datasource:
+    url: jdbc:h2:mem:test;INIT=CREATE SCHEMA IF NOT EXISTS test
+#    url: jdbc:h2:~/Data/H2/test
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+# platform causes schema-${platform}.sql and data-${platform}.sql for mem
+    platform: dev
+#    initialization-mode: always
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+#      use-new-id-generator-mappings: true
+    show-sql: true
+    properties:
+      org:
+        hibernate:
+          envers:
+            default_schema: Audit
+    database: h2
+  h2:
+    console:
+      enabled: true
+#org.hibernate.envers.default_schema
+#https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
+# spring.jpa.hibernate.ddl-auto = update
+  
+#org:
+#  hibernate:
+#    envers.:
+#      default_schema: Audit
