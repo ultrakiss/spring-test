@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pandaspark.model.Item;
+import com.pandaspark.model.ItemHist;
 import com.pandaspark.service.ItemService;
 
 @RestController
@@ -60,6 +62,30 @@ public class ItemController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<Boolean> delete(@RequestBody Item item) {
 		Boolean res = service.delete(item);
+		
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	
+	@PutMapping("/auditHistory")
+	public ResponseEntity<List<Item>> auditHistory(@RequestBody Item item) {
+		List<Item> res = service.getItemHistory(item);
+		
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	
+	@PutMapping("/auditHistory2")
+	public ResponseEntity<List<ItemHist>> auditHistory2(@RequestBody Item item) {
+		List<ItemHist> res = service.getItemHistory2(item);
+		
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@GetMapping("/auditHistoryAtRevision")
+	public ResponseEntity<List<Item>> auditHistoryAtRevision(@RequestParam(name = "code") String code,
+			@RequestParam int revision) {
+		List<Item> res = service.getHistoryAtRevision(code, revision);
 		
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}

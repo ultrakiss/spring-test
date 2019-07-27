@@ -88,5 +88,14 @@ public class Item implements Serializable {
 		this.modifiedby = modifiedby;
 	}
 
+	public Item() {}
 	
+	public Item(Item item) {
+		this.id = item.id;
+		this.code = item.code;
+		this.description = item.description;
+		this.version = item.version;
+		this.modified = item.modified;
+		this.modifiedby = item.modifiedby;
+	}
 }
